@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Página HTML</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:       #010409;
+      --surface:  #0d1117;
+      --cyan:     #00ffe7;
+      --magenta:  #ff00aa;
+      --yellow:   #ffe600;
+      --text:     #c9d1d9;
+      --border:   #21262d;
+      --radius:   4px;
+      --glow-c:   0 0 8px #00ffe780, 0 0 24px #00ffe730;
+      --glow-m:   0 0 8px #ff00aa80, 0 0 24px #ff00aa30;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 3rem 1.5rem 5rem;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,255,231,0.015) 2px,
+        rgba(0,255,231,0.015) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,255,231,0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .bracket {
+      position: relative;
+      padding: 0.2rem 0.5rem;
+    }
+    .bracket::before, .bracket::after {
+      content: '';
+      position: absolute;
+      width: 10px; height: 10px;
+    }
+    .bracket::before {
+      top: 0; left: 0;
+      border-top: 2px solid var(--cyan);
+      border-left: 2px solid var(--cyan);
+    }
+    .bracket::after {
+      bottom: 0; right: 0;
+      border-bottom: 2px solid var(--magenta);
+      border-right: 2px solid var(--magenta);
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 5vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-shadow: var(--glow-c);
+      margin-bottom: 0.4rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      animation: flicker 6s infinite;
+    }
+
+    h1 span {
+      color: var(--magenta);
+      text-shadow: var(--glow-m);
+    }
+
+    @keyframes flicker {
+      0%,96%,100% { opacity: 1; }
+      97%          { opacity: 0.85; }
+      98%          { opacity: 1; }
+      99%          { opacity: 0.75; }
+    }
+
+    .subtitle {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--magenta);
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--cyan) 0%, transparent 100%);
+      opacity: 0.3;
+    }
+
+    section { margin-bottom: 3rem; }
+
+    ol {
+      list-style: none;
+      counter-reset: items;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    ol li {
+      counter-increment: items;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background: linear-gradient(90deg, #0d1117 0%, #0a0f18 100%);
+      border: 1px solid #1a2535;
+      border-left: 2px solid var(--cyan);
+      padding: 0.8rem 1.2rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+    }
+
+    ol li:hover {
+      border-color: var(--cyan);
+      background: linear-gradient(90deg, #091820 0%, #0a0f18 100%);
+      transform: translateX(6px);
+      box-shadow: inset 0 0 20px rgba(0,255,231,0.04), var(--glow-c);
+    }
+
+    ol li::before {
+      content: counter(items, decimal-leading-zero);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--magenta);
+      min-width: 2.2rem;
+      text-shadow: var(--glow-m);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #1a2535;
+    }
+
+    th {
+      background: linear-gradient(90deg, #091820, #08101a);
+      color: var(--cyan);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1rem 1.2rem;
+      text-align: left;
+      border-bottom: 1px solid var(--cyan);
+      text-shadow: var(--glow-c);
+    }
+
+    td {
+      background: var(--surface);
+      padding: 0.85rem 1.2rem;
+      font-size: 0.88rem;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    tr:hover td {
+      background: #0c1a28;
+      color: var(--cyan);
+    }
+
+    td:last-child {
+      color: var(--yellow);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+    }
+
+    tr:hover td:last-child { color: var(--yellow); }
+
+    .nasa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.25s, box-shadow 0.25s, transform 0.2s;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      text-shadow: var(--glow-c);
+      box-shadow: var(--glow-c);
+    }
+
+    .nasa-link::before {
+      content: '▶';
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+    }
+
+    .nasa-link:hover {
+      background: rgba(0,255,231,0.07);
+      box-shadow: var(--glow-c), inset 0 0 20px rgba(0,255,231,0.06);
+      transform: scale(1.03);
+    }
+
+    .nasa-link:hover::before { transform: translateX(3px); }
+
+    .status {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #0d1117;
+      border-top: 1px solid var(--border);
+      padding: 0.4rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: #3d4f62;
+      z-index: 10;
+    }
+    .status span { color: var(--cyan); }
+  </style>
+</head>
+<body>
+  <main>
+
+    <div class="bracket" style="margin-bottom:0.6rem">
+      <h1>Explorando el Universo en Digital</h1>
+    </div>
+    <p class="subtitle">// Sistema de navegación espacial v2.4.1 //</p>
+
+    <section>
+      <h2>▸ Planetas del Sistema Solar</h2>
+      <ol>
+        <li>Mercurio — el más cercano al Sol</li>
+        <li>Venus — el más caliente del sistema</li>
+        <li>Tierra — nuestro hogar azul</li>
+        <li>Marte — el planeta rojo</li>
+        <li>Júpiter — el gigante gaseoso</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>▸ Comparativa Espacial</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Cuerpo Celeste</th>
+            <th>Diámetro (km)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Luna</td>
+            <td>3 474</td>
+          </tr>
+          <tr>
+            <td>Sol</td>
+            <td>1 392 700</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>▸ Explorar más</h2>
+      <a class="nasa-link" href="https://www.nasa.gov" target="_blank" rel="noopener">
+        Visitar NASA.gov
+      </a>
+    </section>
+
+  </main>
+
+  <div class="status">
+    <span>SYS_OK</span>
+    <span>LAT: 28.5721° N &nbsp;|&nbsp; LON: 80.6480° W</span>
+    <span>SIGNAL: <span>██████</span> 100%</span>
+  </div>
+</body>
+</html>
